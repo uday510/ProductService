@@ -1,8 +1,6 @@
 package com.app.productservice.dtos;
 
-import com.app.productservice.models.Category;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter

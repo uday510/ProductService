@@ -40,20 +40,32 @@ public class FakeStoreProductService implements ProductService{
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
     }
 
+    /**
+     *
+     * @return List of products
+     *
+     * This method fetches the list of products from the fakestoreapi.com
+     * and converts the response to a list of products
+     *
+     * @return List of products
+     *
+     * @see Product
+     */
     @Override
     public List<Product> getProducts() {
         String url = "https://fakestoreapi.com/products";
 
-        FakeStoreProductDto[] fakeStoreProductDtos = restTemplate.getForObject(url, FakeStoreProductDto[].class);
+        FakeStoreProductDto[] fakeStoreProductsDto = restTemplate.getForObject(url, FakeStoreProductDto[].class);
 
         List<Product> products = new ArrayList<>();
 
-        assert fakeStoreProductDtos != null;
+        assert fakeStoreProductsDto != null;
 
-        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
+        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductsDto) {
             products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
         }
-
         return products;
     }
 }
+
+
