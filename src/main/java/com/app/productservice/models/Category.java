@@ -1,10 +1,19 @@
 package com.app.productservice.models;
 
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
-public class Category {
-    private Long id;
+@Entity
+public class Category extends BaseModel {
     private String title;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Product> products;
 }
