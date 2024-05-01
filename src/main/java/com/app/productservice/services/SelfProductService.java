@@ -5,6 +5,7 @@ import com.app.productservice.models.Product;
 import com.app.productservice.repositories.CategoryRepository;
 import com.app.productservice.repositories.ProductRepository;
 import exceptions.ProductNotFoundException;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
-//@Primary
+@Primary
 public class SelfProductService implements ProductService{
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
@@ -51,25 +52,8 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product createProduct(Product product) {
-        Category category = product.getCategory();
-
-        if (category.getId() == null) {
-            // create a new category
-            category.setCreatedAt(new Date());
-            Category newCategory = categoryRepository.save(category);
-            product.setCategory(newCategory);
-        } else {
-            // check for valid category
-        }
-        category.setUpdatedAt(new Date());
-
         product.setCreatedAt(new Date());
-        product.setUpdatedAt(new Date());
-        Product newProduct = productRepository.save(product);
-        Optional<Category> optionalCategory = categoryRepository.findById(newProduct.getCategory().getId());
-        newProduct.setCategory(optionalCategory.get());
-
-        return newProduct;
+        return productRepository.save(product);
     }
 
     @Override
